@@ -126,11 +126,19 @@ public class ViewLogin extends JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 lPasswordShow.setIcon(new ImageIcon("resources/Images/hide.png"));
+                tPassword.setEchoChar((char) 0);
+                if (String.valueOf(tPassword.getPassword()).equals("Password")) {
+                    tPassword.setText("");
+                }
             }
-
             @Override
             public void mouseExited(MouseEvent e) {
                 lPasswordShow.setIcon(new ImageIcon("resources/Images/eye.png"));
+                if(String.valueOf(tPassword.getPassword()).equals("")){
+                    tPassword.setText("Password");
+                }
+                tPassword.setEchoChar('*');
+                tPassword.setFont(fontPrincipal);
             }
         });
     }
@@ -189,10 +197,12 @@ public class ViewLogin extends JFrame {
     public void createJPasswordFields() {
         tPassword = new JPasswordField("Password");
         tPassword.setSize(300, 40);
+        tPassword.setFont(fontPrincipal);
         tPassword.setLocation((pDerecha.getWidth() - tPassword.getWidth()) / 2, 200);// (Ancho de panel - Ancho Objeto)/ 2
         tPassword.setForeground(Color.DARK_GRAY);
         tPassword.setCaretColor(Color.blue);// la linea que parpadea asignar color
         tPassword.setBorder(bInferiorNegro);
+        tPassword.setEchoChar('*');
         tPassword.setHorizontalAlignment(SwingConstants.CENTER);//colocar el ingreso de texto en el centro
         pDerecha.add(tPassword);
     }
