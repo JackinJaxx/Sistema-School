@@ -1,5 +1,4 @@
-package App.Views;
-
+package App.client.Views;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,12 +9,12 @@ import java.io.IOException;
 
 public class ViewLogin extends JFrame {
     private JTextField tNombreUsuario;
-    private JLabel lEslogan, lForgotPassword, lButtonSignIn, lButtonLogIn, lUser, lPasswordShow;
+    private JLabel lEslogan, lForgotPassword, lButtonSignIn, lButtonLogIn, lUser, lPasswordShow, lImageLogIn;
     private JCheckBox checkRememberPassword;
     private JPanel pDerecha, pIzquierda;
     private JPasswordField tPassword;
     //private JComboBox cbTipoUsuario;
-    private Color colorPrincipal, colorSecundario, colorTerciario, colorCuarto;
+    private Color colorPrincipal, colorSecundario, colorTerciario, colorCuarto, colortransparente;
     private Font fontPrincipal, fontTitulo, fontComentarios;
     private Cursor cursorMano;
     private Border bInferiorNegro;
@@ -52,7 +51,7 @@ public class ViewLogin extends JFrame {
         pIzquierda = new JPanel();
         pIzquierda.setSize(500, 600);
         pIzquierda.setLocation(0, 0);
-        pIzquierda.setBackground(Color.gray);
+        pIzquierda.setBackground(Color.white);
         pIzquierda.setLayout(null);
 
         pDerecha = new JPanel();
@@ -66,6 +65,13 @@ public class ViewLogin extends JFrame {
     }
 
     public void createJLabels() {
+        lImageLogIn = new JLabel();
+        lImageLogIn.setSize(500,500);
+        lImageLogIn.setLocation((pIzquierda.getWidth() - lImageLogIn.getWidth())/2,5);
+        lImageLogIn.setIcon(new ImageIcon("resources/Images/Login.gif"));
+        pIzquierda.add(lImageLogIn);
+
+
         lEslogan = new JLabel("USER LOGIN");
         lEslogan.setSize(175, 30);
         lEslogan.setFont(fontTitulo);
@@ -144,17 +150,41 @@ public class ViewLogin extends JFrame {
     }
 
     public void createJTexFields() {
-        tNombreUsuario = new JTextField("Username");
+        String placeholder;
+        tNombreUsuario = new JTextField("Usuario");
+        tNombreUsuario.setForeground(colortransparente);
         tNombreUsuario.setSize(300, 40);
         tNombreUsuario.setLocation((pDerecha.getWidth() - tNombreUsuario.getWidth()) / 2, 140);// (Ancho de panel - Ancho Objeto)/ 2
-        tNombreUsuario.setForeground(Color.DARK_GRAY);
         tNombreUsuario.setFont(fontPrincipal);
         tNombreUsuario.setBackground(Color.white);
         tNombreUsuario.setBorder(bInferiorNegro);
         tNombreUsuario.setCaretColor(Color.blue);// la linea que parpadea asignar color
-        tNombreUsuario.setHorizontalAlignment(SwingConstants.LEFT);//colocar el ingreso de texto en el centro
+        tNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);//colocar el ingreso de texto en el centro
         pDerecha.add(tNombreUsuario);
+
+        tNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tNombreUsuario.setText("");
+                tNombreUsuario.setForeground(colorTerciario);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if(tNombreUsuario.getText().isEmpty()){
+                    try {
+                        Thread.sleep(800);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    tNombreUsuario.setText("Usuario");
+                    tNombreUsuario.setForeground(colortransparente);
+                }
+            }
+        });
+
     }
+
 
     public void createJPasswordFields() {
         tPassword = new JPasswordField("Password");
@@ -187,6 +217,7 @@ public class ViewLogin extends JFrame {
         colorSecundario = new Color(255, 46, 99);
         colorTerciario = new Color(37, 42, 52);
         colorCuarto = new Color(8, 217, 214);
+        colortransparente = new Color(220, 220, 224);
     }
 
     public void createFonts() {
