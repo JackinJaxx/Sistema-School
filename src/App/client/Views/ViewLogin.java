@@ -1,5 +1,7 @@
 package App.client.Views;
 
+import App.services.ObjGraficosService;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -18,9 +20,10 @@ public class ViewLogin extends JFrame {
     private Font fontPrincipal, fontTitulo, fontComentarios;
     private Cursor cursorMano;
     private Border bInferiorNegro;
-
+    private ObjGraficosService service;
     public ViewLogin() {
         setTitle("Login");
+        service = ObjGraficosService.getService();
         createColors();
         createFonts();
         createCursors();
@@ -124,21 +127,21 @@ public class ViewLogin extends JFrame {
         pDerecha.add(lPasswordShow);
         lPasswordShow.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
-            public void mouseReleased(MouseEvent e) {
-                lPasswordShow.setIcon(new ImageIcon("resources/Images/hide.png"));
-                tPassword.setEchoChar((char) 0);
-                if (String.valueOf(tPassword.getPassword()).equals("Password")) {
-                    tPassword.setText("");
+            public void mouseClicked(MouseEvent e) {
+                if(lPasswordShow.getIcon().toString().equals("resources/Images/hide.png")){
+                    lPasswordShow.setIcon(new ImageIcon("resources/Images/eye.png"));
+                    if (String.valueOf(tPassword.getPassword()).equals("")) {
+                        tPassword.setText("Password");
+                    }
+                    tPassword.setEchoChar('*');
+                    tPassword.setFont(fontPrincipal);
+                }else {
+                    lPasswordShow.setIcon(new ImageIcon("resources/Images/hide.png"));
+                    tPassword.setEchoChar((char) 0);
+                    if (String.valueOf(tPassword.getPassword()).equals("Password")) {
+                        tPassword.setText("");
+                    }
                 }
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                lPasswordShow.setIcon(new ImageIcon("resources/Images/eye.png"));
-                if(String.valueOf(tPassword.getPassword()).equals("")){
-                    tPassword.setText("Password");
-                }
-                tPassword.setEchoChar('*');
-                tPassword.setFont(fontPrincipal);
             }
         });
     }
@@ -158,7 +161,6 @@ public class ViewLogin extends JFrame {
     }
 
     public void createJTexFields() {
-        String placeholder;
         tNombreUsuario = new JTextField("Usuario");
         tNombreUsuario.setForeground(colortransparente);
         tNombreUsuario.setSize(300, 40);
@@ -190,7 +192,6 @@ public class ViewLogin extends JFrame {
                 }
             }
         });
-
     }
 
 
