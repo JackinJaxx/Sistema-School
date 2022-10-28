@@ -1,7 +1,5 @@
 package App.client.Views;
 
-import App.services.ObjGraficosService;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -20,10 +18,8 @@ public class ViewLogin extends JFrame {
     private Font fontPrincipal, fontTitulo, fontComentarios;
     private Cursor cursorMano;
     private Border bInferiorNegro;
-    private ObjGraficosService service;
     public ViewLogin() {
         setTitle("Login");
-        service = ObjGraficosService.getService();
         createColors();
         createFonts();
         createCursors();
@@ -183,7 +179,7 @@ public class ViewLogin extends JFrame {
             public void mouseExited(MouseEvent e) {
                 if(tNombreUsuario.getText().isEmpty()){
                     try {
-                        Thread.sleep(800);
+                        Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -245,5 +241,4 @@ public class ViewLogin extends JFrame {
         fontTitulo = new Font("Roboto Black", Font.PLAIN, 30);
         fontComentarios = new Font("Cascadia Code", Font.PLAIN, 20);
     }
-
 }
