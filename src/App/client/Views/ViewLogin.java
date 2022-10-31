@@ -3,11 +3,11 @@ package App.client.Views;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
 public class ViewLogin extends JFrame {
+
     private JTextField tNombreUsuario;
     private JLabel lEslogan, lForgotPassword, lButtonSignIn, lButtonLogIn, lUser, lPasswordShow, lImageLogIn;
     private JCheckBox checkRememberPassword;
@@ -27,7 +27,7 @@ public class ViewLogin extends JFrame {
         createJPanels();
         createJLabels();
         createJCheckBoxes();
-        createJTexFields();
+        createJTextFields();
         createJPasswordFields();
         //createJComboBoxes();
 
@@ -70,7 +70,6 @@ public class ViewLogin extends JFrame {
         lImageLogIn.setIcon(new ImageIcon("resources/Images/Login.gif"));
         pIzquierda.add(lImageLogIn);
 
-
         lEslogan = new JLabel("USER LOGIN");
         lEslogan.setSize(175, 30);
         lEslogan.setFont(fontTitulo);
@@ -96,21 +95,6 @@ public class ViewLogin extends JFrame {
         lButtonLogIn.setLocation((pDerecha.getWidth() - lButtonLogIn.getWidth()) / 2, 320);
         lButtonLogIn.setCursor(cursorMano);
         pDerecha.add(lButtonLogIn);
-        lButtonLogIn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lButtonLogIn.setIcon(new ImageIcon("resources/Images/button log in_hover.png"));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                lButtonLogIn.setIcon(new ImageIcon("resources/Images/button log in_click.png"));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                lButtonLogIn.setIcon(new ImageIcon("resources/Images/button log in_active.png"));
-            }
-        });
 
         lUser = new JLabel();
         lUser.setIcon(new ImageIcon("resources/Images/user.png"));
@@ -121,25 +105,6 @@ public class ViewLogin extends JFrame {
         lPasswordShow.setIcon(new ImageIcon("resources/Images/eye.png"));
         lPasswordShow.setBounds(65, 210, 24, 24);
         pDerecha.add(lPasswordShow);
-        lPasswordShow.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if(lPasswordShow.getIcon().toString().equals("resources/Images/hide.png")){
-                    lPasswordShow.setIcon(new ImageIcon("resources/Images/eye.png"));
-                    if (String.valueOf(tPassword.getPassword()).equals("")) {
-                        tPassword.setText("Password");
-                    }
-                    tPassword.setEchoChar('*');
-                    tPassword.setFont(fontPrincipal);
-                }else {
-                    lPasswordShow.setIcon(new ImageIcon("resources/Images/hide.png"));
-                    tPassword.setEchoChar((char) 0);
-                    if (String.valueOf(tPassword.getPassword()).equals("Password")) {
-                        tPassword.setText("");
-                    }
-                }
-            }
-        });
     }
 
     public void createJCheckBoxes() {
@@ -156,7 +121,7 @@ public class ViewLogin extends JFrame {
         pDerecha.add(checkRememberPassword);
     }
 
-    public void createJTexFields() {
+    public void createJTextFields() {
         tNombreUsuario = new JTextField("Usuario");
         tNombreUsuario.setForeground(colortransparente);
         tNombreUsuario.setSize(300, 40);
@@ -167,29 +132,7 @@ public class ViewLogin extends JFrame {
         tNombreUsuario.setCaretColor(Color.blue);// la linea que parpadea asignar color
         tNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);//colocar el ingreso de texto en el centro
         pDerecha.add(tNombreUsuario);
-
-        tNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                tNombreUsuario.setText("");
-                tNombreUsuario.setForeground(colorTerciario);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if(tNombreUsuario.getText().isEmpty()){
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    tNombreUsuario.setText("Usuario");
-                    tNombreUsuario.setForeground(colortransparente);
-                }
-            }
-        });
     }
-
 
     public void createJPasswordFields() {
         tPassword = new JPasswordField("Password");
@@ -204,21 +147,6 @@ public class ViewLogin extends JFrame {
         pDerecha.add(tPassword);
     }
 
-    /*public void createJComboBoxes(){
-        cbTipoUsuario = new JComboBox();
-        cbTipoUsuario.addItem("Maestro");
-        cbTipoUsuario.addItem("Alumno");
-        cbTipoUsuario.addItem("Administrador");
-        cbTipoUsuario.setSize(220, 30);
-        cbTipoUsuario.setLocation((pDerecha.getWidth() - cbTipoUsuario.getWidth()) / 2, 185);// (Ancho de panel - Ancho Objeto)/ 2
-        cbTipoUsuario.setForeground(Color.DARK_GRAY);
-        cbTipoUsuario.setBackground(Color.white);
-        ((JLabel)cbTipoUsuario.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-        /*Para centrar el texto del combobox, primero se debe pedir los objetos que se encuentran dentro del combobox
-        para eso se usa.getRenderer() y luego se cast a JLabel para poder acceder al método setHorizontalAlignment
-        pDerecha.add(cbTipoUsuario);
-    }
-     */
     public void createColors() {
         colorPrincipal = new Color(234, 234, 234);
         colorSecundario = new Color(255, 46, 99);
@@ -240,5 +168,183 @@ public class ViewLogin extends JFrame {
         fontPrincipal = new Font("Roboto", Font.BOLD, 12);
         fontTitulo = new Font("Roboto Black", Font.PLAIN, 30);
         fontComentarios = new Font("Cascadia Code", Font.PLAIN, 20);
+    }
+
+    ////***********GETTERS AND SETTERS***********////
+
+    public JTextField gettNombreUsuario() {
+        return tNombreUsuario;
+    }
+
+    public void settNombreUsuario(JTextField tNombreUsuario) {
+        this.tNombreUsuario = tNombreUsuario;
+    }
+
+    public JLabel getlEslogan() {
+        return lEslogan;
+    }
+
+    public void setlEslogan(JLabel lEslogan) {
+        this.lEslogan = lEslogan;
+    }
+
+    public JLabel getlForgotPassword() {
+        return lForgotPassword;
+    }
+
+    public void setlForgotPassword(JLabel lForgotPassword) {
+        this.lForgotPassword = lForgotPassword;
+    }
+
+    public JLabel getlButtonSignIn() {
+        return lButtonSignIn;
+    }
+
+    public void setlButtonSignIn(JLabel lButtonSignIn) {
+        this.lButtonSignIn = lButtonSignIn;
+    }
+
+    public JLabel getlButtonLogIn() {
+        return lButtonLogIn;
+    }
+
+    public void setlButtonLogIn(JLabel lButtonLogIn) {
+        this.lButtonLogIn = lButtonLogIn;
+    }
+
+    public JLabel getlUser() {
+        return lUser;
+    }
+
+    public void setlUser(JLabel lUser) {
+        this.lUser = lUser;
+    }
+
+    public JLabel getlPasswordShow() {
+        return lPasswordShow;
+    }
+
+    public void setlPasswordShow(JLabel lPasswordShow) {
+        this.lPasswordShow = lPasswordShow;
+    }
+
+    public JLabel getlImageLogIn() {
+        return lImageLogIn;
+    }
+
+    public void setlImageLogIn(JLabel lImageLogIn) {
+        this.lImageLogIn = lImageLogIn;
+    }
+
+    public JCheckBox getCheckRememberPassword() {
+        return checkRememberPassword;
+    }
+
+    public void setCheckRememberPassword(JCheckBox checkRememberPassword) {
+        this.checkRememberPassword = checkRememberPassword;
+    }
+
+    public JPanel getpDerecha() {
+        return pDerecha;
+    }
+
+    public void setpDerecha(JPanel pDerecha) {
+        this.pDerecha = pDerecha;
+    }
+
+    public JPanel getpIzquierda() {
+        return pIzquierda;
+    }
+
+    public void setpIzquierda(JPanel pIzquierda) {
+        this.pIzquierda = pIzquierda;
+    }
+
+    public JPasswordField gettPassword() {
+        return tPassword;
+    }
+
+    public void settPassword(JPasswordField tPassword) {
+        this.tPassword = tPassword;
+    }
+
+    public Color getColorPrincipal() {
+        return colorPrincipal;
+    }
+
+    public void setColorPrincipal(Color colorPrincipal) {
+        this.colorPrincipal = colorPrincipal;
+    }
+
+    public Color getColorSecundario() {
+        return colorSecundario;
+    }
+
+    public void setColorSecundario(Color colorSecundario) {
+        this.colorSecundario = colorSecundario;
+    }
+
+    public Color getColorTerciario() {
+        return colorTerciario;
+    }
+
+    public void setColorTerciario(Color colorTerciario) {
+        this.colorTerciario = colorTerciario;
+    }
+
+    public Color getColorCuarto() {
+        return colorCuarto;
+    }
+
+    public void setColorCuarto(Color colorCuarto) {
+        this.colorCuarto = colorCuarto;
+    }
+
+    public Color getColortransparente() {
+        return colortransparente;
+    }
+
+    public void setColortransparente(Color colortransparente) {
+        this.colortransparente = colortransparente;
+    }
+
+    public Font getFontPrincipal() {
+        return fontPrincipal;
+    }
+
+    public void setFontPrincipal(Font fontPrincipal) {
+        this.fontPrincipal = fontPrincipal;
+    }
+
+    public Font getFontTitulo() {
+        return fontTitulo;
+    }
+
+    public void setFontTitulo(Font fontTitulo) {
+        this.fontTitulo = fontTitulo;
+    }
+
+    public Font getFontComentarios() {
+        return fontComentarios;
+    }
+
+    public void setFontComentarios(Font fontComentarios) {
+        this.fontComentarios = fontComentarios;
+    }
+
+    public Cursor getCursorMano() {
+        return cursorMano;
+    }
+
+    public void setCursorMano(Cursor cursorMano) {
+        this.cursorMano = cursorMano;
+    }
+
+    public Border getbInferiorNegro() {
+        return bInferiorNegro;
+    }
+
+    public void setbInferiorNegro(Border bInferiorNegro) {
+        this.bInferiorNegro = bInferiorNegro;
     }
 }

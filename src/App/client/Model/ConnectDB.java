@@ -10,9 +10,22 @@ public class ConnectDB {
     private final String url = "jdbc:postgresql://localhost:5432/alumnosmaestrosdb";
     private final String user = "postgres";
     private final String password = "alejandro1807";
+    private static ConnectDB instance;
+    private Connection connection = null;
 
+    public Connection getConnection() {
+        return connection;
+    }
+
+    private ConnectDB() {
+    }
+    public static ConnectDB getInstance(){
+        if(instance == null){
+            instance = new ConnectDB();
+        }
+        return instance;
+    }
     public Boolean connectDatabase() {
-        Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -22,11 +35,11 @@ public class ConnectDB {
         try {
             connection = DriverManager.getConnection(url, user, password);
             if (connection != null) {
-                System.out.println("Conexión a base de datos " + url + " ... Ok");
+                System.out.print("Conexión a base de datos " + url + " ... Ok");
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("Error al conectar a la base de datos " + url + ": " + e);
+            System.out.print("Error al conectar a la base de datos " + url + ": " + e);
         }
         return false;
     }
