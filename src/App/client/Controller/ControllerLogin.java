@@ -15,7 +15,6 @@ public class ControllerLogin {
 
     public ControllerLogin() {
         viewLogin = new ViewLogin();
-        viewLogin.setVisible(true);
         initEvents();
     }
 
